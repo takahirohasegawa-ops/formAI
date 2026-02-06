@@ -7,7 +7,7 @@
 **すぐに以下を実行してください:**
 
 1. https://aistudio.google.com/app/apikey にアクセス
-2. 既存のAPIキー `AIzaSyCBT0TvNvR5Y8mkrPGLn6KR5hvIjn-jGa8` を**削除**
+2. 既存のAPIキー `YOUR_API_KEY_HERE` を**削除**
 3. 新しいAPIキーを**作成**
 4. 新しいキーをメモ（後で使用）
 
