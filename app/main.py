@@ -144,6 +144,7 @@ async def get_config():
 if __name__ == "__main__":
     import uvicorn
 
+    # Port is read from environment variable PORT (or defaults to 8000)
     uvicorn.run(
         "app.main:app",
         host=settings.api_host,

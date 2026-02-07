@@ -1,5 +1,6 @@
 """Configuration management"""
 
+import os
 from pydantic_settings import BaseSettings
 from functools import lru_cache
 
@@ -22,7 +23,7 @@ class Settings(BaseSettings):
 
     # API Configuration
     api_host: str = "0.0.0.0"
-    api_port: int = 8000
+    api_port: int = int(os.environ.get("PORT", "8000"))
 
     # Browser Configuration
     headless: bool = True
