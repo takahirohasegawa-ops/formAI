@@ -2,10 +2,18 @@
 
 import os
 from functools import lru_cache
-from dotenv import load_dotenv
 
-# Load .env file if it exists (for local development)
-load_dotenv()
+# Load .env file only if it exists (for local development)
+# Railway provides environment variables directly, so .env is optional
+try:
+    from dotenv import load_dotenv
+    if os.path.exists(".env"):
+        load_dotenv()
+        print("✅ Loaded .env file for local development")
+except ImportError:
+    print("⚠️  python-dotenv not installed, using environment variables only")
+except Exception as e:
+    print(f"⚠️  Could not load .env: {e}")
 
 
 class Settings:

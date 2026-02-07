@@ -4,22 +4,49 @@ import os
 import uvicorn
 
 if __name__ == "__main__":
+    print("=" * 60)
+    print("🚀 Starting Form AI Server")
+    print("=" * 60)
+
     # Get port from environment variable (Railway provides PORT)
     port = int(os.environ.get("PORT", "8000"))
     host = os.environ.get("HOST", "0.0.0.0")
 
-    # Debug: Check if GOOGLE_API_KEY is set
-    api_key = os.environ.get("GOOGLE_API_KEY")
-    if api_key:
-        print(f"✅ GOOGLE_API_KEY is set (length: {len(api_key)})")
-    else:
-        print("❌ WARNING: GOOGLE_API_KEY is NOT set!")
-        print("Available environment variables:")
-        for key in sorted(os.environ.keys()):
-            if 'API' in key or 'GOOGLE' in key or 'KEY' in key:
-                print(f"  - {key}")
+    # Debug: Check ALL environment variables
+    print("\n📋 Environment Variables Check:")
+    print("-" * 60)
 
-    print(f"Starting server on {host}:{port}")
+    required_vars = [
+        "GOOGLE_API_KEY",
+        "DEFAULT_MODEL",
+        "COMPANY_NAME",
+        "CONTACT_PERSON",
+        "EMAIL",
+        "PHONE"
+    ]
+
+    all_set = True
+    for var in required_vars:
+        value = os.environ.get(var)
+        if value:
+            # Hide sensitive data
+            if "KEY" in var or "API" in var:
+                print(f"✅ {var}: ***{value[-4:]} (length: {len(value)})")
+            else:
+                print(f"✅ {var}: {value}")
+        else:
+            print(f"❌ {var}: NOT SET")
+            all_set = False
+
+    print("-" * 60)
+    print(f"\n🌐 Server Configuration:")
+    print(f"   Host: {host}")
+    print(f"   Port: {port}")
+    print("=" * 60)
+
+    if not all_set:
+        print("\n⚠️  WARNING: Some required environment variables are missing!")
+        print("The application may not work correctly.\n")
 
     uvicorn.run(
         "app.main:app",
