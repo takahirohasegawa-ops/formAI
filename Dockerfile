@@ -56,4 +56,5 @@ EXPOSE 8000
 ENV PYTHONUNBUFFERED=1
 
 # Run the application
-CMD ["python", "start.py"]
+# First run test_env.py to debug environment variables, then start the server
+CMD ["sh", "-c", "python test_env.py && python start.py"]
