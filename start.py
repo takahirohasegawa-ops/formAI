@@ -1,6 +1,7 @@
 """Start script for Railway deployment"""
 
 import os
+import sys
 import uvicorn
 
 if __name__ == "__main__":
@@ -8,9 +9,25 @@ if __name__ == "__main__":
     print("🚀 Starting Form AI Server")
     print("=" * 60)
 
+    # Debug: Print Python version and path
+    print(f"\n🐍 Python Version: {sys.version}")
+    print(f"📁 Working Directory: {os.getcwd()}")
+    print(f"📁 Python Path: {sys.executable}")
+
     # Get port from environment variable (Railway provides PORT)
     port = int(os.environ.get("PORT", "8000"))
     host = os.environ.get("HOST", "0.0.0.0")
+
+    # Debug: Dump ALL environment variables
+    print("\n🔍 ALL Environment Variables:")
+    print("-" * 60)
+    for key, value in sorted(os.environ.items()):
+        # Mask sensitive values
+        if any(keyword in key.upper() for keyword in ['KEY', 'SECRET', 'PASSWORD', 'TOKEN']):
+            print(f"  {key} = ***{value[-4:] if len(value) > 4 else '****'}")
+        else:
+            print(f"  {key} = {value}")
+    print("-" * 60)
 
     # Debug: Check ALL environment variables
     print("\n📋 Environment Variables Check:")
