@@ -17,23 +17,27 @@ def patch_browser_use():
             with open(service_py, 'r') as f:
                 content = f.read()
 
-            # Check if already patched (look for headless=True)
-            if 'launch(headless=True' not in content:
-                # Find launch call and add headless=True
-                original = 'browser = await playwright.chromium.launch('
-                if original in content:
-                    # Force headless mode without breaking indentation
-                    patched = 'browser = await playwright.chromium.launch(headless=True, '
-                    content = content.replace(original, patched)
+            # Check if already patched
+            if 'headless=True,' in content or 'headless = True' in content:
+                print(f"✅ {service_py} already patched (headless=True found)")
+                return True
 
-                    with open(service_py, 'w') as f:
-                        f.write(content)
+            # Replace headless parameter value
+            if 'headless=self.headless' in content:
+                # Replace headless=self.headless with headless=True
+                content = content.replace('headless=self.headless', 'headless=True')
 
-                    print(f"✅ Patched {service_py} to force headless mode")
-                    return True
-                else:
-                    print(f"⚠️  Could not find launch call in {service_py}")
-                    print(f"Content preview: {content[:500]}")
+                with open(service_py, 'w') as f:
+                    f.write(content)
+
+                print(f"✅ Patched {service_py} to force headless mode (replaced headless parameter)")
+                return True
+            elif 'headless=' in content:
+                print(f"⚠️  Found 'headless=' but not 'headless=self.headless'")
+                print(f"Content preview: {content[:500]}")
+            else:
+                print(f"⚠️  Could not find headless parameter in {service_py}")
+                print(f"Content preview: {content[:500]}")
             else:
                 print(f"✅ {service_py} already patched (headless=True found)")
                 return True
