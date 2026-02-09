@@ -108,7 +108,7 @@ class FormAgent:
 
         try:
             # Force headless mode via environment variable
-            os.environ["HEADLESS"] = "true"
+            os.environ["HEADLESS"] = "1"
 
             # Create LLM instance with Gemini
             llm = ChatGoogleGenerativeAI(
@@ -117,8 +117,7 @@ class FormAgent:
                 google_api_key=self.settings.google_api_key
             )
 
-            # Create browser context with headless mode
-            # browser-use should respect HEADLESS environment variable
+            # Create agent - browser-use should respect HEADLESS env var
             agent = Agent(
                 task=f"{self._create_task_prompt(message, company, person, email_addr, phone_num)}\n\nURL: {url}",
                 llm=llm,
