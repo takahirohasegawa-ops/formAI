@@ -3,7 +3,7 @@
 
 FROM python:3.11-slim
 
-# Install system dependencies for Playwright
+# Install system dependencies for Playwright and xvfb
 RUN apt-get update && apt-get install -y \
     wget \
     gnupg \
@@ -28,6 +28,7 @@ RUN apt-get update && apt-get install -y \
     libxkbcommon0 \
     libxrandr2 \
     xdg-utils \
+    xvfb \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
@@ -54,7 +55,8 @@ EXPOSE 8000
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
+ENV DISPLAY=:99
 
 # Run the application
-# First run test_env.py to debug environment variables, then start the server
-CMD ["sh", "-c", "python test_env.py && python start.py"]
+# Use xvfb-run to provide a virtual display for browser-use
+CMD ["sh", "-c", "python test_env.py && xvfb-run -a python start.py"]
