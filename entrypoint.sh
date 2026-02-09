@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+echo "Patching browser-use to force headless mode..."
+python patch_browser_use.py
+
 echo "Starting Xvfb..."
 Xvfb :99 -screen 0 1920x1080x24 &
 XVFB_PID=$!
