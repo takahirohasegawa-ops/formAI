@@ -4,6 +4,17 @@ import os
 import sys
 import uvicorn
 
+# Disable stdin immediately to prevent EOF errors in non-interactive environments
+try:
+    sys.stdin.close()
+except:
+    pass
+sys.stdin = open(os.devnull, 'r')
+
+# Set environment variables to disable interactive prompts
+os.environ["PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD"] = "0"
+os.environ["PLAYWRIGHT_BROWSERS_PATH"] = os.environ.get("PLAYWRIGHT_BROWSERS_PATH", "/ms-playwright")
+
 if __name__ == "__main__":
     print("=" * 60)
     print("🚀 Starting Form AI Server")

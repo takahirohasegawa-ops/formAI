@@ -13,8 +13,16 @@ from .config import get_settings
 from .models import FormSubmissionStatus, FormSubmissionResponse
 
 # Disable stdin to prevent EOF errors in non-interactive environments
-if not sys.stdin.isatty():
-    sys.stdin = open(os.devnull, 'r')
+# Force stdin to /dev/null regardless of tty status
+try:
+    sys.stdin.close()
+except:
+    pass
+sys.stdin = open(os.devnull, 'r')
+
+# Set environment variable to disable interactive prompts
+os.environ["PYTHONUNBUFFERED"] = "1"
+os.environ["PLAYWRIGHT_BROWSERS_PATH"] = os.environ.get("PLAYWRIGHT_BROWSERS_PATH", "/ms-playwright")
 
 
 class FormAgent:
