@@ -107,14 +107,9 @@ class FormAgent:
             )
 
             # Create agent with Browser Use (let it manage the browser internally)
-            # Configure for headless mode in production environment
             agent = Agent(
                 task=f"{self._create_task_prompt(message, company, person, email_addr, phone_num)}\n\nURL: {url}",
                 llm=llm,
-                browser_config={
-                    "headless": True,
-                    "disable_security": False,
-                },
             )
 
             # Execute task
