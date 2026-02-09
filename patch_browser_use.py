@@ -38,9 +38,6 @@ def patch_browser_use():
             else:
                 print(f"⚠️  Could not find headless parameter in {service_py}")
                 print(f"Content preview: {content[:500]}")
-            else:
-                print(f"✅ {service_py} already patched (headless=True found)")
-                return True
         else:
             print(f"❌ {service_py} not found")
 
