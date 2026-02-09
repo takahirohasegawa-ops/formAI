@@ -24,6 +24,10 @@ sys.stdin = open(os.devnull, 'r')
 os.environ["PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD"] = "0"
 os.environ["PLAYWRIGHT_BROWSERS_PATH"] = os.environ.get("PLAYWRIGHT_BROWSERS_PATH", "/ms-playwright")
 
+# Force headless mode for browser-use
+os.environ["HEADLESS"] = "true"
+os.environ["BROWSER_HEADLESS"] = "true"
+
 if __name__ == "__main__":
     print("=" * 60)
     print("🚀 Starting Form AI Server")
