@@ -47,6 +47,9 @@ RUN playwright install chromium
 # Copy application code
 COPY . .
 
+# Make entrypoint script executable
+RUN chmod +x entrypoint.sh
+
 # Create directory for screenshots
 RUN mkdir -p /tmp
 
@@ -57,6 +60,5 @@ EXPOSE 8000
 ENV PYTHONUNBUFFERED=1
 ENV DISPLAY=:99
 
-# Run the application
-# Use xvfb-run to provide a virtual display for browser-use
-CMD ["sh", "-c", "python test_env.py && xvfb-run -a python start.py"]
+# Run the application via entrypoint script
+CMD ["./entrypoint.sh"]
