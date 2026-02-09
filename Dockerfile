@@ -47,6 +47,9 @@ RUN playwright install chromium
 # Copy application code
 COPY . .
 
+# Patch browser-use to force headless mode at BUILD time
+RUN python patch_browser_use.py
+
 # Make entrypoint script executable
 RUN chmod +x entrypoint.sh
 
