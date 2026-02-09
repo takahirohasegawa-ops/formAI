@@ -2,9 +2,18 @@
 
 import os
 import sys
+import builtins
 import uvicorn
 
-# Disable stdin immediately to prevent EOF errors in non-interactive environments
+# Monkey-patch input() to prevent EOF errors in non-interactive environments
+def _dummy_input(prompt=""):
+    """Dummy input function that returns empty string instead of reading stdin"""
+    print(f"[WARNING] input() called with prompt: {prompt}")
+    return ""
+
+builtins.input = _dummy_input
+
+# Disable stdin immediately to prevent EOF errors
 try:
     sys.stdin.close()
 except:
