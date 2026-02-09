@@ -3,6 +3,7 @@
 import asyncio
 import re
 import os
+import sys
 from typing import Optional, Dict, Any
 from playwright.async_api import async_playwright, Page, Browser
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -10,6 +11,10 @@ from browser_use import Agent
 
 from .config import get_settings
 from .models import FormSubmissionStatus, FormSubmissionResponse
+
+# Disable stdin to prevent EOF errors in non-interactive environments
+if not sys.stdin.isatty():
+    sys.stdin = open(os.devnull, 'r')
 
 
 class FormAgent:
@@ -102,9 +107,14 @@ class FormAgent:
             )
 
             # Create agent with Browser Use (let it manage the browser internally)
+            # Configure for headless mode in production environment
             agent = Agent(
                 task=f"{self._create_task_prompt(message, company, person, email_addr, phone_num)}\n\nURL: {url}",
                 llm=llm,
+                browser_config={
+                    "headless": True,
+                    "disable_security": False,
+                },
             )
 
             # Execute task
