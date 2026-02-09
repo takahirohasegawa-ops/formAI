@@ -17,13 +17,13 @@ def patch_browser_use():
             with open(service_py, 'r') as f:
                 content = f.read()
 
-            # Check if already patched
-            if 'PATCHED_FOR_HEADLESS' not in content:
+            # Check if already patched (look for headless=True)
+            if 'launch(headless=True' not in content:
                 # Find launch call and add headless=True
                 original = 'browser = await playwright.chromium.launch('
                 if original in content:
-                    # Add marker and force headless
-                    patched = '# PATCHED_FOR_HEADLESS\n\t\tbrowser = await playwright.chromium.launch(headless=True, '
+                    # Force headless mode without breaking indentation
+                    patched = 'browser = await playwright.chromium.launch(headless=True, '
                     content = content.replace(original, patched)
 
                     with open(service_py, 'w') as f:
@@ -35,7 +35,7 @@ def patch_browser_use():
                     print(f"⚠️  Could not find launch call in {service_py}")
                     print(f"Content preview: {content[:500]}")
             else:
-                print(f"✅ {service_py} already patched")
+                print(f"✅ {service_py} already patched (headless=True found)")
                 return True
         else:
             print(f"❌ {service_py} not found")
