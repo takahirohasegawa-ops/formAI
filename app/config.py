@@ -27,7 +27,7 @@ class Settings:
 
         # Model Configuration
         self.default_model = os.environ.get("DEFAULT_MODEL", "gemini-2.5-flash-latest")
-        self.complex_model = os.environ.get("COMPLEX_MODEL", "gemini-1.5-pro-latest")
+        self.complex_model = os.environ.get("DEFAULT_MODEL", "gemini-2.5-flash-latest")
 
         # Sender Information
         self.company_name = os.environ.get("COMPANY_NAME", "RECHANCE株式会社")
