@@ -26,7 +26,7 @@ class Settings:
             raise ValueError("GOOGLE_API_KEY environment variable is required")
 
         # Model Configuration
-        self.default_model = os.environ.get("DEFAULT_MODEL", "gemini-1.5-flash-latest")
+        self.default_model = os.environ.get("DEFAULT_MODEL", "gemini-2.5-flash-latest")
         self.complex_model = os.environ.get("COMPLEX_MODEL", "gemini-1.5-pro-latest")
 
         # Sender Information
