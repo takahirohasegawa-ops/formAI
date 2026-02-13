@@ -59,14 +59,14 @@ cp .env.example .env
 GOOGLE_API_KEY=AIzaSyXXXXXXXXXXXXXXXXXXXXXX
 
 # モデル設定
-DEFAULT_MODEL=gemini-1.5-flash    # コスト重視（高速・安価）
-# DEFAULT_MODEL=gemini-1.5-pro    # 精度重視（高精度）
+DEFAULT_MODEL=gemini-2.5-flash-latest    # コスト重視（高速・安価）
+# DEFAULT_MODEL=gemini-2.5-flash-latest    # 精度重視（高精度）
 
 # 送信者情報
 COMPANY_NAME=RECHANCE株式会社
 CONTACT_PERSON=桑原麻由
 EMAIL=info@rechance.jp
-PHONE=090-1234-7891
+PHONE=050-1783-6959
 ```
 
 ### 3. ローカルでテスト実行
