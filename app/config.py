@@ -33,7 +33,7 @@ class Settings:
         self.company_name = os.environ.get("COMPANY_NAME", "RECHANCE株式会社")
         self.contact_person = os.environ.get("CONTACT_PERSON", "桑原麻由")
         self.email = os.environ.get("EMAIL", "info@rechance.jp")
-        self.phone = os.environ.get("PHONE", "090-1234-7891")
+        self.phone = os.environ.get("PHONE", "050-1783-6959")
 
         # API Configuration
         self.api_host = os.environ.get("API_HOST", "0.0.0.0")
