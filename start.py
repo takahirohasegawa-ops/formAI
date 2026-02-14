@@ -58,7 +58,7 @@ if __name__ == "__main__":
     print("-" * 60)
 
     required_vars = [
-        "GOOGLE_API_KEY",
+        "ANTHROPIC_API_KEY",
         "DEFAULT_MODEL",
         "COMPANY_NAME",
         "CONTACT_PERSON",
