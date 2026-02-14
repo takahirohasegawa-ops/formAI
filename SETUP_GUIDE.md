@@ -6,7 +6,7 @@
 
 **すぐに以下を実行してください:**
 
-1. https://aistudio.google.com/app/apikey にアクセス
+1. https://console.anthropic.com/settings/keys にアクセス
 2. 既存のAPIキー `YOUR_API_KEY_HERE` を**削除**
 3. 新しいAPIキーを**作成**
 4. 新しいキーをメモ（後で使用）
@@ -86,7 +86,7 @@ open -e .env
 **新しいAPIキー**を入力:
 
 ```
-GOOGLE_API_KEY=ここに新しいAPIキーを貼り付け
+ANTHROPIC_API_KEY=ここに新しいAPIキーを貼り付け
 ```
 
 保存して閉じる（nanoの場合: Ctrl+X → Y → Enter）
@@ -202,7 +202,7 @@ cat .gitignore
 
 # コミット
 git add .
-git commit -m "Initial commit: Form AI with Gemini"
+git commit -m "Initial commit: Form AI with Claude"
 ```
 
 ### 2. GitHubにプッシュ
@@ -236,8 +236,8 @@ git push -u origin main
 3. 以下を追加:
 
 ```
-GOOGLE_API_KEY=新しく作成したAPIキー
-DEFAULT_MODEL=gemini-1.5-flash
+ANTHROPIC_API_KEY=新しく作成したAPIキー
+DEFAULT_MODEL=claude-haiku-4-5-20251001
 COMPANY_NAME=RECHANCE株式会社
 CONTACT_PERSON=桑原麻由
 EMAIL=info@rechance.jp

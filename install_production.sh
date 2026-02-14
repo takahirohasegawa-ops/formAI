@@ -60,11 +60,11 @@ echo ""
 # Step 6: 環境変数の確認
 echo "⚙️  Step 6: 環境変数の確認..."
 if [ -f ".env" ]; then
-    if grep -q "GOOGLE_API_KEY=AIzaSy" .env; then
+    if grep -q "ANTHROPIC_API_KEY=sk-ant" .env; then
         echo "✅ .env ファイルが存在します"
     else
-        echo "⚠️  .env ファイルにGOOGLE_API_KEYが設定されていません"
-        echo "   .envファイルを編集して、GOOGLE_API_KEYを設定してください"
+        echo "⚠️  .env ファイルにANTHROPIC_API_KEYが設定されていません"
+        echo "   .envファイルを編集して、ANTHROPIC_API_KEYを設定してください"
     fi
 else
     echo "⚠️  .env ファイルが見つかりません"

@@ -22,7 +22,7 @@
 1. 右上の「+」→「New repository」をクリック
 2. 以下を入力：
    - **Repository name**: `formAI`
-   - **Description**: `Automated form submission with Gemini AI`
+   - **Description**: `Automated form submission with Claude AI`
    - **Visibility**: **Private** を選択（推奨）
    - ❌ **Initialize this repository** はチェックしない
 3. 「Create repository」をクリック
@@ -113,8 +113,8 @@ Railwayが自動的に以下を実行します：
 以下を1つずつ追加：
 
 ```bash
-GOOGLE_API_KEY=YOUR_API_KEY_HERE
-DEFAULT_MODEL=gemini-1.5-flash
+ANTHROPIC_API_KEY=YOUR_API_KEY_HERE
+DEFAULT_MODEL=claude-haiku-4-5-20251001
 COMPANY_NAME=RECHANCE株式会社
 CONTACT_PERSON=桑原麻由
 EMAIL=info@rechance.jp
@@ -261,9 +261,9 @@ Railwayが自動的に再デプロイします！
 
 ### APIが動かない
 
-1. `GOOGLE_API_KEY` が正しいか確認
+1. `ANTHROPIC_API_KEY` が正しいか確認
 2. Railway のログでエラーを確認
-3. https://aistudio.google.com/app/apikey でAPIキーを再生成
+3. https://console.anthropic.com/settings/keys でAPIキーを再生成
 
 ### スプレッドシートから送信できない
 

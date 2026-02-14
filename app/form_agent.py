@@ -1,4 +1,4 @@
-"""Form submission agent using Browser Use and Gemini API"""
+"""Form submission agent using Browser Use and Claude API"""
 
 import asyncio
 import re

@@ -4,7 +4,7 @@
 
 ## 🎯 概要
 
-- **Python + Browser Use + Gemini API** でフォーム送信を自動化
+- **Python + Browser Use + Claude API** でフォーム送信を自動化
 - **FastAPI** でAPI化
 - **Railway** にデプロイ
 - **Google Apps Script** からスプレッドシート操作
@@ -54,13 +54,13 @@ cp .env.example .env
 `.env` ファイルに以下を設定：
 
 ```bash
-# Google Gemini API Key (必須)
-# https://aistudio.google.com/app/apikey で取得
-GOOGLE_API_KEY=AIzaSyXXXXXXXXXXXXXXXXXXXXXX
+# Anthropic Claude API Key (必須)
+# https://console.anthropic.com/settings/keys で取得
+ANTHROPIC_API_KEY=sk-ant-api03-XXXXXXXXXXXXXXXXXXXXXXXX
 
 # モデル設定
-DEFAULT_MODEL=gemini-2.5-flash-latest    # コスト重視（高速・安価）
-# DEFAULT_MODEL=gemini-2.5-flash-latest    # 精度重視（高精度）
+DEFAULT_MODEL=claude-haiku-4-5-20251001    # コスト重視（高速・安価）
+# DEFAULT_MODEL=claude-sonnet-4-5-20250514  # 精度重視（高精度）
 
 # 送信者情報
 COMPANY_NAME=RECHANCE株式会社
@@ -123,8 +123,8 @@ git push -u origin main
 Railway プロジェクトの **Variables** タブで以下を設定：
 
 ```
-GOOGLE_API_KEY=AIzaSyXXXXXXXXXXXXXXXXXXXXXX
-DEFAULT_MODEL=gemini-1.5-flash
+ANTHROPIC_API_KEY=sk-ant-api03-XXXXXXXXXXXXXXXXXXXXXXXX
+DEFAULT_MODEL=claude-haiku-4-5-20251001
 COMPANY_NAME=RECHANCE株式会社
 CONTACT_PERSON=桑原麻由
 EMAIL=info@rechance.jp
@@ -177,14 +177,15 @@ const API_ENDPOINT = 'https://your-app.railway.app/api/submit';
 
 ### モデル選択
 
-- **Gemini 1.5 Flash** (デフォルト): 超低コスト、高速、シンプルなフォーム向け
-  - 入力: $0.075 / 1M tokens
-  - 出力: $0.30 / 1M tokens
-  - **Claude Haikuの約1/3のコスト！**
+- **Claude Haiku 4.5** (デフォルト): 低コスト、高速、シンプルなフォーム向け
+  - 入力: $0.25 / 1M tokens
+  - 出力: $1.25 / 1M tokens
+  - **高速かつコスト効率が良い！**
 
-- **Gemini 1.5 Pro**: 高精度、複雑なフォーム向け
-  - 入力: $1.25 / 1M tokens
-  - 出力: $5.00 / 1M tokens
+- **Claude Sonnet 4.5**: 高精度、複雑なフォーム向け
+  - 入力: $3.00 / 1M tokens
+  - 出力: $15.00 / 1M tokens
+  - **複雑なフォームも確実に処理**
 
 ### CAPTCHA自動検知
 
@@ -192,8 +193,8 @@ CAPTCHAを検知すると早期終了し、無駄なトークン消費を防ぎ�
 
 ### コストメリット
 
-- Gemini Flashは Claude Haikuの **約1/3のコスト**
-- 1,000件送信で約 **$0.30〜$1.00** の節約
+- Claude Haikuは高速で低コスト
+- 1,000件送信で約 **$0.10〜$0.50** の低コスト運用が可能
 
 ## 📝 使用例
 
@@ -239,7 +240,7 @@ playwright install-deps chromium
 ### GASでAPIエラーが出る
 
 1. Railway の URL が正しいか確認
-2. Railway の環境変数が設定されているか確認
+2. Railway の環境変数 (ANTHROPIC_API_KEY) が設定されているか確認
 3. Railway のログを確認: `railway logs`
 
 ## 📚 API ドキュメント

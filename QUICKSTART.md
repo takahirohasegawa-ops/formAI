@@ -1,9 +1,9 @@
 # 🚀 クイックスタートガイド
 
-## 1️⃣ Gemini API キーを取得
+## 1️⃣ Claude API キーを取得
 
-1. https://aistudio.google.com/app/apikey にアクセス
-2. 「Create API Key」をクリック
+1. https://console.anthropic.com/settings/keys にアクセス
+2. 「Create Key」をクリック
 3. APIキーをコピー
 
 ## 2️⃣ ローカルセットアップ（5分）
@@ -13,7 +13,7 @@
 cp .env.example .env
 
 # .envファイルを編集
-# GOOGLE_API_KEY=あなたのAPIキー に変更
+# ANTHROPIC_API_KEY=あなたのAPIキー に変更
 
 # 依存関係インストール
 python -m venv venv
@@ -57,7 +57,7 @@ git push -u origin main
 Railway で:
 1. New Project → Deploy from GitHub repo
 2. リポジトリを選択
-3. Variables タブで `GOOGLE_API_KEY` を設定
+3. Variables タブで `ANTHROPIC_API_KEY` を設定
 4. デプロイ完了！
 
 ## 5️⃣ Google Spreadsheet セットアップ（5分）
@@ -88,13 +88,13 @@ Railway で:
 - 1件送信: 約 $0.0001〜$0.0005（0.01円〜0.05円）
 - 1,000件送信: 約 $0.10〜$0.50（10円〜50円）
 
-Gemini Flashは超低コスト！
+Claude Haikuは高速かつ低コスト！
 
 ## 🆘 トラブルシューティング
 
 ### APIエラーが出る
-- Gemini API キーが正しいか確認
-- https://aistudio.google.com/app/apikey で有効か確認
+- Claude API キーが正しいか確認
+- https://console.anthropic.com/settings/keys で有効か確認
 
 ### ブラウザが起動しない
 ```bash

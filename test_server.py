@@ -52,8 +52,8 @@ async def submit_form(request: FormSubmissionRequest):
 @app.get("/api/config")
 async def get_config():
     return {
-        "default_model": "gemini-1.5-flash",
-        "complex_model": "gemini-1.5-pro",
+        "default_model": "claude-haiku-4-5-20251001",
+        "complex_model": "claude-sonnet-4-5-20250514",
         "company_name": "RECHANCE株式会社",
         "contact_person": "桑原麻由",
         "email": "info@rechance.jp",
