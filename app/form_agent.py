@@ -6,7 +6,7 @@ import os
 import sys
 from typing import Optional, Dict, Any
 from playwright.async_api import async_playwright, Page, Browser
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_anthropic import ChatAnthropic
 from browser_use import Agent
 
 from .config import get_settings
@@ -30,8 +30,8 @@ class FormAgent:
 
     def __init__(self):
         self.settings = get_settings()
-        # Set Google API key environment variable
-        os.environ["GOOGLE_API_KEY"] = self.settings.google_api_key
+         # Set Anthropic API key environment variable
+          os.environ["ANTHROPIC_API_KEY"] = self.settings.anthropic_api_key
 
     async def detect_captcha(self, page: Page) -> bool:
         """
@@ -110,12 +110,13 @@ class FormAgent:
             # Force headless mode via environment variable
             os.environ["HEADLESS"] = "1"
 
-            # Create LLM instance with Gemini
-            llm = ChatGoogleGenerativeAI(
-                model=model,
-                temperature=0.1,
-                google_api_key=self.settings.google_api_key
-            )
+            # Create LLM instance with Claude
+              llm = ChatAnthropic(
+                  model=model,
+                  temperature=0.1,
+                  anthropic_api_key=self.settings.anthropic_api_key
+              )
+
 
             # Create agent - browser-use should respect HEADLESS env var
             agent = Agent(
@@ -202,20 +203,20 @@ class FormAgent:
         return 1000  # Placeholder
 
     def _estimate_cost(self, tokens: int, model: str) -> float:
-        """Estimate cost based on tokens and model"""
-        # Gemini API costs (as of 2025)
-        # Flash: $0.075 / 1M input tokens, $0.30 / 1M output tokens
-        # Pro: $1.25 / 1M input tokens, $5.00 / 1M output tokens
+          """Estimate cost based on tokens and model"""
+          # Claude API costs (as of 2025)
+          # Haiku: $0.25 / 1M input tokens, $1.25 / 1M output tokens
+          # Sonnet: $3.00 / 1M input tokens, $15.00 / 1M output tokens
 
-        if "flash" in model.lower():
-            # Assume 70% input, 30% output
-            input_cost = (tokens * 0.7) * 0.075 / 1_000_000
-            output_cost = (tokens * 0.3) * 0.30 / 1_000_000
-        else:  # pro
-            input_cost = (tokens * 0.7) * 1.25 / 1_000_000
-            output_cost = (tokens * 0.3) * 5.00 / 1_000_000
+          if "haiku" in model.lower():
+              # Assume 70% input, 30% output
+              input_cost = (tokens * 0.7) * 0.25 / 1_000_000
+              output_cost = (tokens * 0.3) * 1.25 / 1_000_000
+          else:  # sonnet
+              input_cost = (tokens * 0.7) * 3.00 / 1_000_000
+              output_cost = (tokens * 0.3) * 15.00 / 1_000_000
 
-        return round(input_cost + output_cost, 6)
+          return round(input_cost + output_cost, 6)
 
 
 # Singleton instance
