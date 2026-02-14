@@ -30,8 +30,8 @@ class FormAgent:
 
     def __init__(self):
         self.settings = get_settings()
-         # Set Anthropic API key environment variable
-          os.environ["ANTHROPIC_API_KEY"] = self.settings.anthropic_api_key
+        # Set Anthropic API key environment variable
+        os.environ["ANTHROPIC_API_KEY"] = self.settings.anthropic_api_key
 
     async def detect_captcha(self, page: Page) -> bool:
         """
@@ -111,12 +111,11 @@ class FormAgent:
             os.environ["HEADLESS"] = "1"
 
             # Create LLM instance with Claude
-              llm = ChatAnthropic(
-                  model=model,
-                  temperature=0.1,
-                  anthropic_api_key=self.settings.anthropic_api_key
-              )
-
+            llm = ChatAnthropic(
+                model=model,
+                temperature=0.1,
+                anthropic_api_key=self.settings.anthropic_api_key
+            )
 
             # Create agent - browser-use should respect HEADLESS env var
             agent = Agent(
@@ -191,9 +190,11 @@ class FormAgent:
 【お問い合わせ内容/メッセージ】
 {message}
 
-フォームのフィールドに適切な情報を入力し、送信ボタンをクリックしてください。
-フィールド名は日本語または英語の可能性があります（例：「会社名」「Company」「名前」「Name」など）。
-必須フィールドをすべて入力し、最後に送信ボタン（「送信」「Submit」「Send」など）をクリックしてください。
+手順:
+1. 現在のページにフォームがあるか確認してください。
+2. もしフォームが見つからない場合は、ページ内の「お問い合わせ」「Contact」「問い合わせ」などのリンクをクリックしてフォームページに移動してください。
+3. フォームのフィールドに適切な情報を入力してください。フィールド名は日本語または英語の可能性があります（例：「会社名」「Company」「名前」「Name」など）。
+4. 必須フィールドをすべて入力し、最後に送信ボタン（「送信」「Submit」「Send」など）をクリックしてください。
 """
 
     def _estimate_tokens(self, result: Any) -> int:
@@ -203,20 +204,20 @@ class FormAgent:
         return 1000  # Placeholder
 
     def _estimate_cost(self, tokens: int, model: str) -> float:
-          """Estimate cost based on tokens and model"""
-          # Claude API costs (as of 2025)
-          # Haiku: $0.25 / 1M input tokens, $1.25 / 1M output tokens
-          # Sonnet: $3.00 / 1M input tokens, $15.00 / 1M output tokens
+        """Estimate cost based on tokens and model"""
+        # Claude API costs (as of 2025)
+        # Haiku: $0.25 / 1M input tokens, $1.25 / 1M output tokens
+        # Sonnet: $3.00 / 1M input tokens, $15.00 / 1M output tokens
 
-          if "haiku" in model.lower():
-              # Assume 70% input, 30% output
-              input_cost = (tokens * 0.7) * 0.25 / 1_000_000
-              output_cost = (tokens * 0.3) * 1.25 / 1_000_000
-          else:  # sonnet
-              input_cost = (tokens * 0.7) * 3.00 / 1_000_000
-              output_cost = (tokens * 0.3) * 15.00 / 1_000_000
+        if "haiku" in model.lower():
+            # Assume 70% input, 30% output
+            input_cost = (tokens * 0.7) * 0.25 / 1_000_000
+            output_cost = (tokens * 0.3) * 1.25 / 1_000_000
+        else:  # sonnet
+            input_cost = (tokens * 0.7) * 3.00 / 1_000_000
+            output_cost = (tokens * 0.3) * 15.00 / 1_000_000
 
-          return round(input_cost + output_cost, 6)
+        return round(input_cost + output_cost, 6)
 
 
 # Singleton instance
