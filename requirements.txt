@@ -9,9 +9,8 @@ python-dotenv==1.0.1
 browser-use
 playwright==1.48.0
 
-# Google Gemini API
-google-generativeai==0.8.3
-langchain-google-genai==2.0.5
+# Anthropic Claude API
+langchain-anthropic==0.3.3
 
 # Utility
 httpx==0.27.2
