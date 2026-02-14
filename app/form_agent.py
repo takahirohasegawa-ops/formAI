@@ -128,17 +128,35 @@ class FormAgent:
 
             # Check if submission was successful based on result
             result_str = str(result).lower() if result else ""
+
+            # Check for failure patterns first
+            failure_indicators = [
+                'stopping due to',
+                'consecutive failures',
+                'failed to',
+                'could not',
+                'unable to',
+                'error',
+                'exception',
+                'timeout'
+            ]
+
             success_indicators = [
                 'thank you', 'ありがとう', '送信完了', '受付', 'received',
                 'success', '完了', 'sent', 'submitted', 'complete'
             ]
 
+            is_failure = any(indicator in result_str for indicator in failure_indicators)
             is_success = any(indicator in result_str for indicator in success_indicators)
 
-            if is_success:
+            if is_failure:
+                status = FormSubmissionStatus.FAILED
+                details = f"フォーム送信に失敗しました: {result}"
+            elif is_success:
                 status = FormSubmissionStatus.SUCCESS
                 details = "フォーム送信が完了しました"
             else:
+                # Neither success nor failure indicators found - mark as success but with details
                 status = FormSubmissionStatus.SUCCESS
                 details = f"タスク実行完了: {result}"
 
