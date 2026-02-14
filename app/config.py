@@ -26,8 +26,8 @@ class Settings:
             raise ValueError("ANTHROPIC_API_KEY environment variable is required")
 
         # Model Configuration
-        self.default_model = os.environ.get("DEFAULT_MODEL", "claude-haiku-4-20250514")
-        self.complex_model = os.environ.get("COMPLEX_MODEL", "claude-sonnet-4-20250514")
+        self.default_model = os.environ.get("DEFAULT_MODEL", "claude-haiku-4-5-20251001")
+        self.complex_model = os.environ.get("COMPLEX_MODEL", "claude-sonnet-4-5-20250514")
 
         # Sender Information
         self.company_name = os.environ.get("COMPANY_NAME", "RECHANCE株式会社")
